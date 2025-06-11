@@ -1,0 +1,113 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<style>
+  .register-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .register-title {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 600;
+  }
+  
+  .register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .register-form p {
+    margin-bottom: 5px;
+  }
+  
+  .register-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #34495e;
+  }
+  
+  .register-form input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+  }
+  
+  .register-form input:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+  }
+  
+  .register-btn {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+  }
+  
+  .register-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .form-errors {
+    color: #e74c3c;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  
+  .login-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #7f8c8d;
+  }
+  
+  .login-link a {
+    color: #3498db;
+    text-decoration: none;
+  }
+  
+  .login-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="register-container">
+  <h2 class="register-title">Create Your Account</h2>
+  
+  <form method="POST" class="register-form">
+    {% csrf_token %}
+    
+    {% if form.errors %}
+      <div class="form-errors">
+        Please correct the errors below:
+      </div>
+    {% endif %}
+    
+    {{ form.as_p }}
+    
+    <button type="submit" class="register-btn">Register</button>
+    
+    <div class="login-link">
+      Already have an account? <a href="{% url 'login' %}">Sign in</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

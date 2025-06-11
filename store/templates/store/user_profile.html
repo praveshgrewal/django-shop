@@ -1,0 +1,46 @@
+{% extends 'store/base.html' %}
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4"><i class="bi bi-person-circle"></i> My Profile</h2>
+
+    <!-- User Info -->
+    <div class="card mb-4 p-3">
+        <h5><i class="bi bi-person"></i> User Info</h5>
+        <p><strong>Name:</strong> {{ user.username|default:"Not Set" }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="card mb-4 p-3">
+        <h5><i class="bi bi-cart3"></i> Cart Items</h5>
+        {% if cart_items %}
+            <ul class="list-group">
+                {% for item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ item.product.title }} (x{{ item.quantity }})
+                        <span>₹{{ item.product.price }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No items in cart.</p>
+        {% endif %}
+    </div>
+
+    <!-- Previous Orders -->
+    <div class="card mb-4 p-3">
+        <h5><i class="bi bi-box-seam"></i> Previous Orders</h5>
+        {% if orders %}
+            {% for order in orders %}
+                <div class="mb-3 border-bottom pb-2">
+                    <p><strong>Order ID:</strong> {{ order.id }}</p>
+                    <p><strong>Date:</strong> {{ order.created_at }}</p>
+                    <p><strong>Total:</strong> ₹{{ order.total_amount }}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No previous orders.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
